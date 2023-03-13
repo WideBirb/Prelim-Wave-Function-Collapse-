@@ -12,7 +12,6 @@ namespace MyApp // Note: actual namespace depends on the project name.
             Random rnd = new Random();
             List<int> Pool = new List<int>();
             int Attempts = 0;
-            int answer = 0;
             int Backtrack   = 0;
 
             // first param is column
@@ -29,12 +28,10 @@ namespace MyApp // Note: actual namespace depends on the project name.
             for (int current_col = 0; current_col < Board.GetLength(0); current_col++)
             {
 
-                // GENERATE POOL
-
-
                 for (int current_row = 0; current_row < Board.GetLength(0); current_row++)
                 {
 
+                    // GENERATE POOL
                     for (int i = 0; i < 9; i++)
                         Pool.Add(i + 1);
 
@@ -51,13 +48,26 @@ namespace MyApp // Note: actual namespace depends on the project name.
                     }
 
                     // SCAN 3x3 MATRIX
+                    int startRow = current_row / 3 * 3;
+                    int startCol = current_col / 3 * 3;
+                    for (int row = startRow; row < startRow + 3; row++)
+                        for (int col = startCol; col < startCol + 3; col++)
+                            Pool.Remove(Board[col, row]);
 
-                    // GENERATE ANSWER
-                    Board[current_col, current_row] = Pool[rnd.Next(0, Pool.Count)];
-
-                    Pool.Clear();
-
+                    Console.Write(" AVAILABLE NUMBERS: " + "\t");
+                    foreach (int num in Pool)
+                        Console.Write(num + "\t");
                     Console.WriteLine();
+                    Console.WriteLine("POOL COUNT: " + Pool.Count);
+
+                    // BACKTRACK IF POOL COUNT == 0
+                    if (Pool.Count == 0)
+                        current_row =- 2;
+                    else
+                        Board[current_col, current_row] = Pool[rnd.Next(0, Pool.Count)];
+
+                    // DISPLAY
+                    Console.WriteLine("ATTEMPTS :" + Attempts);
                     for (int i = 0; i < Board.GetLength(0); i++)
                     {
                         if (i % 3 == 0)
@@ -77,17 +87,12 @@ namespace MyApp // Note: actual namespace depends on the project name.
 
                     }
 
+                    Pool.Clear();
 
                 }
-
-
             }
 
-
-            // DISPLAY
-
-
-            // https://www.geeksforgeeks.org/sudoku-backtracking-7/
+            
 
         }
     }
