@@ -32,11 +32,14 @@ namespace MyApp // Note: actual namespace depends on the project name.
                 {
 
                     // GENERATE POOL
-                    for (int i = 0; i < 9; i++)
-                        Pool.Add(i + 1);
+
 
                     for (int current_row = 0; current_row < Board.GetLength(0); current_row++)
                     {
+
+                        for (int i = 0; i < 9; i++)
+                            Pool.Add(i + 1);
+
                         // SCAN ROW
                         for (int i = 0; i < Board.GetLength(1); i++)
                         {
@@ -53,7 +56,7 @@ namespace MyApp // Note: actual namespace depends on the project name.
 
 
                         // REMAINING POOL
-                        Console.WriteLine("REMAINING NUMBERS IN POOL");
+                        Console.WriteLine("REMAINING NUMBERS IN POOL AFTER REMOVAL");
                         foreach (int num in Pool)
                             Console.Write(num + "\t");
 
@@ -64,10 +67,12 @@ namespace MyApp // Note: actual namespace depends on the project name.
                         }
                         else
                         {
-                            answer = rnd.Next(0, Pool.Count + 1);
+                            answer = rnd.Next(0, Pool.Count);
+                            Console.WriteLine("ANSWER IS INDEX " + answer);
                             Board[current_col, current_row] = Pool[answer];
                         }
 
+                        Pool.Clear();
 
                         Console.WriteLine();
                         for (int i = 0; i < Board.GetLength(0); i++)
@@ -88,7 +93,10 @@ namespace MyApp // Note: actual namespace depends on the project name.
                             Console.WriteLine();
 
                         }
+
+                        
                     }
+
 
                 }
             }
@@ -103,4 +111,3 @@ namespace MyApp // Note: actual namespace depends on the project name.
     }
 }
 
-https://www.geeksforgeeks.org/sudoku-backtracking-7/
