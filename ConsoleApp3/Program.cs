@@ -8,7 +8,7 @@ namespace MyApp // Note: actual namespace depends on the project name.
         {
             // DECLARATION
 
-            int[,] Board = new int[9,9];
+            int[,] Board = new int[9, 9];
             Random rnd = new Random();
             List<int> Pool = new List<int>();
             int Attempts = 0;
@@ -92,7 +92,7 @@ namespace MyApp // Note: actual namespace depends on the project name.
 
                 }
             }
-           
+
 
             // DISPLAY
 
@@ -103,3 +103,4 @@ namespace MyApp // Note: actual namespace depends on the project name.
     }
 }
 
+https://www.geeksforgeeks.org/sudoku-backtracking-7/
