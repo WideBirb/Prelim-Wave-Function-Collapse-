@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace MyApp // Note: actual namespace depends on the project name.
 {
@@ -11,19 +11,14 @@ namespace MyApp // Note: actual namespace depends on the project name.
             int[,] Board = new int[9, 9];
             Random rnd = new Random();
             List<int> Pool = new List<int>();
-            int Attempts = 0;
-            int Backtrack   = 0;
+            int Attempts    = 0;
+            int backtrack   = 2;
+            int dead_end    = 0;
 
             // first param is column
             // second param is row
 
             // LOGIC
-
-
-            // DISPLAY
-
-            // first param is column
-            // second param is row
 
             for (int current_col = 0; current_col < Board.GetLength(0); current_col++)
             {
@@ -32,20 +27,16 @@ namespace MyApp // Note: actual namespace depends on the project name.
                 {
 
                     // GENERATE POOL
-                    for (int i = 0; i < 9; i++)
-                        Pool.Add(i + 1);
+                    for (int i = 1; i < 10; i++)
+                        Pool.Add(i);
 
                     // SCAN ROW
                     for (int i = 0; i < Board.GetLength(1); i++)
-                    {
                         Pool.Remove(Board[current_col, i]);
-                    }
 
                     // SCAN COLUMN
                     for (int i = 0; i < Board.GetLength(0); i++)
-                    {
                         Pool.Remove(Board[i, current_row]);
-                    }
 
                     // SCAN 3x3 MATRIX
                     int startRow = current_row / 3 * 3;
@@ -62,7 +53,31 @@ namespace MyApp // Note: actual namespace depends on the project name.
 
                     // BACKTRACK IF POOL COUNT == 0
                     if (Pool.Count == 0)
-                        current_row =- 2;
+                    { 
+                        
+                        // increment back tracking everytime the same row is a dead end
+                        if ( current_row == dead_end )
+                        { 
+
+                            // MAKE ALGO THAT RESETS ALL NUMBERS THAT CORRESPONDS TO THE AMOUNT OF BACK TRACKING THE PROGRAM DID
+                            for (int i = 0; current_row < current_row - backtrack; i++)
+                            { 
+                                Board[current_col, current_row - i] = 0;
+                            }
+
+                            backtrack++;
+                                
+                        }
+                        // if dead is different then revert backtracking and re assign dead end
+                        else
+                        { 
+                            dead_end == current_row;
+                            backtrack = 2;
+                        }
+
+                        current_row =- backtrack;
+                    }
+                                            
                     else
                         Board[current_col, current_row] = Pool[rnd.Next(0, Pool.Count)];
 
@@ -97,4 +112,3 @@ namespace MyApp // Note: actual namespace depends on the project name.
         }
     }
 }
-
