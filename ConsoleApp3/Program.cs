@@ -1,4 +1,5 @@
 using System;
+using System.Security.Cryptography.X509Certificates;
 
 namespace MyApp // Note: actual namespace depends on the project name.
 {
@@ -11,9 +12,8 @@ namespace MyApp // Note: actual namespace depends on the project name.
             int[,] Board = new int[9, 9];
             Random rnd = new Random();
             List<int> Pool = new List<int>();
-            int Attempts    = 0;
-            int backtrack   = 2;
-            int dead_end    = 0;
+            int Attempts = 0;
+            int fail_count = 0;
 
             // first param is column
             // second param is row
@@ -45,69 +45,48 @@ namespace MyApp // Note: actual namespace depends on the project name.
                         for (int col = startCol; col < startCol + 3; col++)
                             Pool.Remove(Board[col, row]);
 
-                    Console.Write(" AVAILABLE NUMBERS: " + "\t");
-                    foreach (int num in Pool)
-                        Console.Write(num + "\t");
-                    Console.WriteLine();
-                    Console.WriteLine("POOL COUNT: " + Pool.Count);
-
                     // BACKTRACK IF POOL COUNT == 0
                     if (Pool.Count == 0)
-                    { 
-                        
-                        // increment back tracking everytime the same row is a dead end
-                        if ( current_row == dead_end )
-                        { 
-
-                            // MAKE ALGO THAT RESETS ALL NUMBERS THAT CORRESPONDS TO THE AMOUNT OF BACK TRACKING THE PROGRAM DID
-                            for (int i = 0; current_row < current_row - backtrack; i++)
-                            { 
-                                Board[current_col, current_row - i] = 0;
-                            }
-
-                            backtrack++;
-                                
+                    {
+                        if (fail_count > 9)
+                        {
+                            current_col -= 1;
                         }
-                        // if dead is different then revert backtracking and re assign dead end
-                        else
-                        { 
-                            dead_end == current_row;
-                            backtrack = 2;
+                        current_row = -1;
+                        for (int x = 0; x < Board.GetLength(1); x++)
+                        {
+                            Board[current_col, x] = 0;
                         }
-
-                        current_row =- backtrack;
                     }
-                                            
+
                     else
                         Board[current_col, current_row] = Pool[rnd.Next(0, Pool.Count)];
-
-                    // DISPLAY
-                    Console.WriteLine("ATTEMPTS :" + Attempts);
-                    for (int i = 0; i < Board.GetLength(0); i++)
-                    {
-                        if (i % 3 == 0)
-                        {
-                            for (int j = 0; j < 90; j++)
-                                Console.Write("-");
-                        }
-                        Console.WriteLine();
-
-                        for (int j = 0; j < Board.GetLength(1); j++)
-                        {
-                            if (j % 3 == 0)
-                                Console.Write("|" + "\t");
-                            Console.Write(Board[i, j] + "\t");
-                        }
-                        Console.WriteLine();
-
-                    }
 
                     Pool.Clear();
 
                 }
             }
 
-            
+            // DISPLAY
+            Console.WriteLine("ATTEMPTS :" + 1);
+            for (int i = 0; i < Board.GetLength(0); i++)
+            {
+                if (i % 3 == 0)
+                {
+                    for (int j = 0; j < 90; j++)
+                        Console.Write("-");
+                }
+                Console.WriteLine();
+
+                for (int j = 0; j < Board.GetLength(1); j++)
+                {
+                    if (j % 3 == 0)
+                        Console.Write("|" + "\t");
+                    Console.Write(Board[i, j] + "\t");
+                }
+                Console.WriteLine();
+
+            }
 
         }
     }
