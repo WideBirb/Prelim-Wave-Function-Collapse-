@@ -7,8 +7,6 @@ namespace MyApp // Note: actual namespace depends on the project name.
     {
         static void Main(string[] args)
         {
-            // DECLARATION
-
             int[,] Board = new int[9, 9];
             Random rnd = new Random();
             List<int> Pool = new List<int>();
