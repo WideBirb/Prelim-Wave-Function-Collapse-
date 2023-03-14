@@ -48,15 +48,12 @@ namespace MyApp // Note: actual namespace depends on the project name.
                     // BACKTRACK IF POOL COUNT == 0
                     if (Pool.Count == 0)
                     {
-                        if (fail_count > 9)
-                        {
-                            current_col -= 1;
-                        }
+                        Attempts++;
+                        current_col = 0;
                         current_row = -1;
-                        for (int x = 0; x < Board.GetLength(1); x++)
-                        {
-                            Board[current_col, x] = 0;
-                        }
+                        for (int x = 0; x < Board.GetLength(0); x++)
+                            for ( int y = 0; y < Board.GetLength(1); y++)
+                                Board[x, y] = 0;
                     }
 
                     else
@@ -68,7 +65,7 @@ namespace MyApp // Note: actual namespace depends on the project name.
             }
 
             // DISPLAY
-            Console.WriteLine("ATTEMPTS :" + 1);
+            Console.WriteLine("ATTEMPTS :" + Attempts);
             for (int i = 0; i < Board.GetLength(0); i++)
             {
                 if (i % 3 == 0)
