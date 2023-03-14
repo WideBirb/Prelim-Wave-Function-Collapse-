@@ -13,39 +13,28 @@ namespace MyApp // Note: actual namespace depends on the project name.
             Random rnd = new Random();
             List<int> Pool = new List<int>();
             int Attempts = 0;
-            int fail_count = 0;
-
-            // first param is column
-            // second param is row
-
-            // LOGIC
-
+            
             for (int current_col = 0; current_col < Board.GetLength(0); current_col++)
             {
 
                 for (int current_row = 0; current_row < Board.GetLength(0); current_row++)
                 {
 
-                    // GENERATE POOL
                     for (int i = 1; i < 10; i++)
                         Pool.Add(i);
 
-                    // SCAN ROW
                     for (int i = 0; i < Board.GetLength(1); i++)
                         Pool.Remove(Board[current_col, i]);
 
-                    // SCAN COLUMN
                     for (int i = 0; i < Board.GetLength(0); i++)
                         Pool.Remove(Board[i, current_row]);
-
-                    // SCAN 3x3 MATRIX
+                    
                     int startRow = current_row / 3 * 3;
                     int startCol = current_col / 3 * 3;
                     for (int row = startRow; row < startRow + 3; row++)
                         for (int col = startCol; col < startCol + 3; col++)
                             Pool.Remove(Board[col, row]);
 
-                    // BACKTRACK IF POOL COUNT == 0
                     if (Pool.Count == 0)
                     {
                         Attempts++;
@@ -64,7 +53,6 @@ namespace MyApp // Note: actual namespace depends on the project name.
                 }
             }
 
-            // DISPLAY
             Console.WriteLine("ATTEMPTS :" + Attempts);
             for (int i = 0; i < Board.GetLength(0); i++)
             {
