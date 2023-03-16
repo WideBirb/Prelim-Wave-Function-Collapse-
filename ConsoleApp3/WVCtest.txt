@@ -37,6 +37,8 @@ local function remove_from_pool (str, character)
     local remaining = ""
     if string.find(str, character) then
         remaining = string.gsub(str, character, "")
+    else
+        remaining = str
     end
     
     return remaining
@@ -79,14 +81,14 @@ if string.find(k,NUM_GENERATED) then
 end
 ]]--
 
-local NUM_GENERATED = "3"
+local NUM_GENERATED = "69"
 
 -- REMOVES NUMBER GENERATED FROM THE POSSIBILITIES STRING ( PSEUDO TABLE ) TO THE P_B ARRAY
 for i, v in ipairs(P_B) do
     for j, k in ipairs(v) do
         local new_possibilities = remove_from_pool(k, NUM_GENERATED)
         P_B[i][j] = new_possibilities
-        -- io.write(new_possibilities.. "\t")
+        io.write(new_possibilities.. "\t")
     end
     print()
 end
