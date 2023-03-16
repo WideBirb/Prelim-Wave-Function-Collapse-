@@ -1,10 +1,8 @@
-local x = 10
-local y = 25
-local z = x + y
+require "math"
 
 local values_board = {
-    {"0","0","0","0","0","0","0","0","0","0"},
-    {"0","0","0","0","0","0","0","0","0","0"},
+    {"1","0","0","0","0","0","0","0","0","0"},
+    {"asdfasdfasdf","0","0","0","0","0","0","0","0","0"},
     {"0","0","0","0","0","0","0","0","0","0"},
     {"0","0","0","0","0","0","0","0","0","0"},
     {"0","0","0","0","0","0","0","0","0","0"},
@@ -15,8 +13,8 @@ local values_board = {
     {"0","0","0","0","0","0","0","0","0","0"},
 }
 
-
-local P_B = {}          -- create the matrix
+-- create the matrix
+local P_B = {}          
 for i=1,10 do
     P_B[i] = {}
     for j=1,10 do
@@ -44,36 +42,6 @@ local function remove_from_pool (str, character)
     return remaining
 end    
 
-local function store_entropy (table)
-    local entropy_table = {}
-    
-    return entropy_table
-end
-
-local function calculate_possibilities (table)
-    local possibilities_table = {}
-    
-    
-    return possibilities_table
-end
-
---print(values_board[3][3])
---local test = "STRING"
---print(string.sub(test,1,1))
-
-for i = 10,1,-1 do 
-   --print(i) 
-end
-
---[[
-for i= 1,#pos_board,1 do
-    for i= 1,#pos_board,1 do
-        print(i)
-    end
-    \n
-end
-]]--
-
 --[[
 if string.find(k,NUM_GENERATED) then
     k = string.gsub(k, NUM_GENERATED, "")
@@ -81,22 +49,65 @@ if string.find(k,NUM_GENERATED) then
 end
 ]]--
 
-local NUM_GENERATED = "69"
-
 -- REMOVES NUMBER GENERATED FROM THE POSSIBILITIES STRING ( PSEUDO TABLE ) TO THE P_B ARRAY
 for i, v in ipairs(P_B) do
     for j, k in ipairs(v) do
+        local NUM_GENERATED = math.random(1,string.len(k))
+        print("J: "..P_B[i][j])
+       -- print("STRING LEN "..string.len(k).. " NUM_GENERATED: ".. NUM_GENERATED)
         local new_possibilities = remove_from_pool(k, NUM_GENERATED)
         P_B[i][j] = new_possibilities
-        io.write(new_possibilities.. "\t")
+       -- io.write(new_possibilities.. "\t")
     end
     print()
 end
 
 
-for i, v in ipairs(P_B) do
+
+
+-- FOR EVERY SLOT POPULATED
+-- VISIT ALL ROWS
+-- VISIT ALL COLUMN
+-- VISIT ALL MATRIX
+-- UPDATE POSSIBILITIES
+-- CALCULATE ENTROPY
+-- STORE COORDINATES OF ENTROPY IN TABLE
+for i, v in ipairs(values_board) do
     for j, k in ipairs(v) do
         --io.write(#k.. "\t")
+        for j=1,10 do
+            P_B[i][j] = "123456789"
+        end
     end
     print()
 end
+
+local function store_entropy (table) -- pass value_board here
+    local entropy_table = {}
+    
+    -- MAKE ENTROPY MATRIX
+    for i=1,10 do
+        entropy_table[i] = {}
+        for j=1,10 do
+            entropy_table[i][j] = ""
+        end
+    end
+
+    for i, v in ipairs(table) do
+        for j, k in ipairs(v) do
+            -- check if blank
+            if #values_board[i][j] == 0 then
+            
+            -- if not blank
+            else
+            
+            end
+
+        end
+        print()
+    end
+
+    return entropy_table
+end
+
+print()
