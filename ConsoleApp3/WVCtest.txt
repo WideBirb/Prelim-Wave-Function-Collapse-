@@ -1,6 +1,7 @@
 require "math"
 
 local values_board = {
+    {"1","2","","","","","5","","",""},
     {"","","","","","","","","",""},
     {"","","","","","","","","",""},
     {"","","","","","","","","",""},
@@ -9,8 +10,7 @@ local values_board = {
     {"","","","","","","","","",""},
     {"","","","","","","","","",""},
     {"","","","","","","","","",""},
-    {"","","","","","","","","",""},
-    {"","","","","","","","","",""},
+    {"9","","","","","","","","",""},
 }
 
 -- create the matrix
@@ -62,11 +62,8 @@ for i, v in ipairs(P_B) do
         P_B[i][j] = new_possibilities
         --io.write(new_possibilities.. "\t")
     end
-    print()
+    --print()
 end
-
-
-
 
 -- FOR EVERY SLOT POPULATED
 -- VISIT ALL ROWS
@@ -85,7 +82,7 @@ for i, v in ipairs(values_board) do
             P_B[i][j] = "123456789"
         end
     end
-    print()
+    --print()
 end
 
 
@@ -111,11 +108,29 @@ local function store_entropy (table) -- pass value_board
             else
                 -- scan row
                 for i = 1,10 do
-                   local number_in_slot = values_board[current_column][current_row] 
+                    local number_in_slot = values_board[current_column][current_row]
+                    local new_possibilities = remove_from_pool(entropy_table[current_column][i], number_in_slot)
+                    entropy_table[current_column][i] = new_possibilities
+                    
+                    -- if scanned the same slot
+                    if i == current_row then
+                        entropy_table[current_column][current_row] = ""
+                    end
                     
                 end
                 
                 -- scan column
+                for i = 1,10 do
+                    local number_in_slot = values_board[current_column][current_row]
+                    local new_possibilities = remove_from_pool(entropy_table[i][current_row], number_in_slot)
+                    entropy_table[i][current_row] = new_possibilities
+                    
+                    -- if scanned the same slot
+                    if i == current_column then
+                        entropy_table[current_column][current_row] = ""
+                    end
+                    
+                end
                 
                 
                 
@@ -129,5 +144,16 @@ local function store_entropy (table) -- pass value_board
     return entropy_table
 end
 
+
+
+local test = store_entropy(values_board)
+for i, v in ipairs(store_entropy(values_board)) do
+    for j, k in ipairs(v) do
+        io.write(string.len(k).. "\t")
+    end
+    print()
+end
+
 --prints the lenght of the string
 --print(#values_board[2][1])
+
