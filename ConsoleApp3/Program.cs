@@ -1,6 +1,4 @@
 using System;
-using System.Security.Cryptography.X509Certificates;
-
 namespace MyApp // Note: actual namespace depends on the project name.
 {
     internal class Program
@@ -11,7 +9,7 @@ namespace MyApp // Note: actual namespace depends on the project name.
             Random rnd = new Random();
             List<int> Pool = new List<int>();
             int Attempts = 0;
-            
+
             for (int current_col = 0; current_col < Board.GetLength(0); current_col++)
             {
 
@@ -26,7 +24,7 @@ namespace MyApp // Note: actual namespace depends on the project name.
 
                     for (int i = 0; i < Board.GetLength(0); i++)
                         Pool.Remove(Board[i, current_row]);
-                    
+
                     int startRow = current_row / 3 * 3;
                     int startCol = current_col / 3 * 3;
                     for (int row = startRow; row < startRow + 3; row++)
@@ -39,7 +37,7 @@ namespace MyApp // Note: actual namespace depends on the project name.
                         current_col = 0;
                         current_row = -1;
                         for (int x = 0; x < Board.GetLength(0); x++)
-                            for ( int y = 0; y < Board.GetLength(1); y++)
+                            for (int y = 0; y < Board.GetLength(1); y++)
                                 Board[x, y] = 0;
                     }
 
@@ -54,16 +52,16 @@ namespace MyApp // Note: actual namespace depends on the project name.
             Console.WriteLine("ATTEMPTS :" + Attempts);
             for (int i = 0; i < Board.GetLength(0); i++)
             {
-                if (i % 3 == 0)
+                if ((i % 3 == 0) && !(i == 0))
                 {
-                    for (int j = 0; j < 90; j++)
-                        Console.Write("-");
+                    for (int j = 0; j < 30; j++)
+                        Console.Write(" - ");
                 }
                 Console.WriteLine();
 
                 for (int j = 0; j < Board.GetLength(1); j++)
                 {
-                    if (j % 3 == 0)
+                    if ((j % 3 == 0) && !(j == 0))
                         Console.Write("|" + "\t");
                     Console.Write(Board[i, j] + "\t");
                 }
