@@ -1,4 +1,6 @@
 using System;
+using System.Security.Cryptography.X509Certificates;
+
 namespace MyApp // Note: actual namespace depends on the project name.
 {
     internal class Program
@@ -54,8 +56,8 @@ namespace MyApp // Note: actual namespace depends on the project name.
             {
                 if ((i % 3 == 0) && !(i == 0))
                 {
-                    for (int j = 0; j < 30; j++)
-                        Console.Write(" - ");
+                    for (int j = 0; j < 41; j++)
+                        Console.Write("- ");
                 }
                 Console.WriteLine();
 
