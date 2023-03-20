@@ -13,23 +13,6 @@ local values_board = {
     {"","","","","","","","","",""},
 }
 
--- create the matrix
-local P_B = {}          
-for i=1,10 do
-    P_B[i] = {}
-    for j=1,10 do
-        P_B[i][j] = "123456789"
-    end
-end
-
---[[
-for i, v in ipairs(values_board) do
-    for j, k in ipairs(v) do
-        values_board[i][j] = "123456789"
-    end
-    print()
-end
-]]--
 
 local function remove_from_pool (str, character)
     local remaining = ""
@@ -41,51 +24,6 @@ local function remove_from_pool (str, character)
     
     return remaining
 end    
-
---[[
-if string.find(k,NUM_GENERATED) then
-    k = string.gsub(k, NUM_GENERATED, "")
-    print(k)
-end
-]]--
-
---??
--- REMOVES NUMBER GENERATED FROM THE POSSIBILITIES STRING ( PSEUDO TABLE ) TO THE P_B ARRAY
-       -- print("J: "..P_B[i][j])
-       -- print("STRING LEN "..string.len(k).. " NUM_GENERATED: ".. NUM_GENERATED)
-       
-       
-for i, v in ipairs(P_B) do
-    for j, k in ipairs(v) do
-        local NUM_GENERATED = math.random(1,string.len(k))
-        local new_possibilities = remove_from_pool(k, NUM_GENERATED)
-        P_B[i][j] = new_possibilities
-        --io.write(new_possibilities.. "\t")
-    end
-    --print()
-end
-
--- FOR EVERY SLOT POPULATED
--- VISIT ALL ROWS
--- VISIT ALL COLUMN
--- VISIT ALL MATRIX
--- UPDATE POSSIBILITIES
--- CALCULATE ENTROPY
--- STORE COORDINATES OF ENTROPY IN TABLE
-
-
---init possibilities
-for i, v in ipairs(values_board) do
-    for j, k in ipairs(v) do
-        --io.write(#k.. "\t")
-        for j=1,10 do
-            P_B[i][j] = "123456789"
-        end
-    end
-    --print()
-end
-
-
 
 local function store_entropy (table) -- pass value_board 
     local entropy_table = {}
@@ -139,6 +77,7 @@ local function store_entropy (table) -- pass value_board
                 for rowOffset = 0,2 do 
                     for colOffset = 0,2 do 
                         local number_in_slot = values_board[current_column][current_row]
+                        print(startCol + colOffset)
                         local new_possibilities = remove_from_pool(entropy_table[startCol + colOffset][startRow + rowOffset], number_in_slot)
                         entropy_table[startCol + colOffset][startRow + rowOffset] = new_possibilities
 
@@ -160,6 +99,9 @@ local function store_entropy (table) -- pass value_board
     return entropy_table
 end
 
+-- FIND COORDINATES WITH THE LOWEST ENTROPY
+-- LOCATE THAT COORDINATE
+-- GENERATE NUM FROM THE STRING OF POSSIBILITIES
 
 print("SUDOKU ")
 for i, v in ipairs(values_board) do
