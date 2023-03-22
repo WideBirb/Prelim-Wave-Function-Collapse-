@@ -1,6 +1,4 @@
 using System;
-using System.Security.Cryptography.X509Certificates;
-
 namespace MyApp // Note: actual namespace depends on the project name.
 {
     internal class Program
@@ -40,9 +38,7 @@ namespace MyApp // Note: actual namespace depends on the project name.
                     }
                     else
                         Board[current_col, current_row] = Pool[rnd.Next(0, Pool.Count)];
-
                     Pool.Clear();
-
                 }
 
             Console.WriteLine("ATTEMPTS :" + Attempts);
@@ -54,7 +50,6 @@ namespace MyApp // Note: actual namespace depends on the project name.
                         Console.Write("- ");
                 }
                 Console.WriteLine();
-
                 for (int j = 0; j < Board.GetLength(1); j++)
                 {
                     if ((j % 3 == 0) && !(j == 0))
