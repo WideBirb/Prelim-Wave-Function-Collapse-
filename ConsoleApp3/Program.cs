@@ -36,9 +36,7 @@ namespace MyApp // Note: actual namespace depends on the project name.
                         Attempts++;
                         current_col = 0;
                         current_row = -1;
-                        for (int x = 0; x < Board.GetLength(0); x++)
-                            for (int y = 0; y < Board.GetLength(1); y++)
-                                Board[x, y] = 0;
+                        Board = new int[9, 9];
                     }
                     else
                         Board[current_col, current_row] = Pool[rnd.Next(0, Pool.Count)];
@@ -56,6 +54,7 @@ namespace MyApp // Note: actual namespace depends on the project name.
                         Console.Write("- ");
                 }
                 Console.WriteLine();
+
                 for (int j = 0; j < Board.GetLength(1); j++)
                 {
                     if ((j % 3 == 0) && !(j == 0))
