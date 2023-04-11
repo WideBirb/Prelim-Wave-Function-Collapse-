@@ -1,5 +1,6 @@
 List<int>[,] Possibilities = new List<int>[9,9];
-possibilites[a,b] = new List<int>();
+Possibilities[a,b] = new List<int>();
+Possibilities.Add(x);
  
 
 
